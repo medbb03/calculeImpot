@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<title>Impo</title>
+
+</head>
+<body>
+
+
+<h1>Calcule des Impots</h1>
+<label>Entrer vos revenue</label>
+<input type="number" id="revenue" >
+<button id="calcule">Calculer</button>
+<div id="res"></div>
+</body>
+</html>
+
+	<script >
+		$(function() {
+		var palier1=9807;
+		var palier2=27086;
+		var palier3=72617;
+		var palier4= 153783;
+
+		var ocalcule= document.getElementById('calcule');
+		var ores=document.getElementById('res');
+		var tranche1 = (palier2-palier1)*14/100;
+		var tranche2 = (palier3-palier2)*30/100;
+		var tranche3= (palier4-palier3)*41/100;
+
+		ocalcule.addEventListener('click', function(){
+
+		var orevenue = document.getElementById('revenue').value;
+		orevenue=parseInt(orevenue);
+		      if (orevenue< 0) {
+				alert("revenue negatif");
+			} 
+		
+			if (orevenue< palier1 && orevenue > 0) {
+				ores.innerHTML =("vos revenue sont inferieur a "+palier1+" euros donc Impot egale 0");
+			}
+			if (orevenue >palier1 && orevenue < palier2) {
+				var difference = orevenue-palier1;
+				var impots = difference *14 /100 ;
+				ores.innerHTML =("vos revenue sont entre a "+palier1+" euros et "+palier2+" donc palier Impot  14% les impots egale ="+impots );
+			}
+			if (orevenue >palier2 && orevenue < palier3 ) {
+
+				var difference = orevenue-palier2;
+				var impots = difference *30 /100+ tranche1 ;
+				ores.innerHTML =("vos revenue sont entre "+palier2+"  et "+palier3+" euros donc palier Impot egale 30% les impot egale ="+impots );
+			}
+			if (orevenue > palier3 && orevenue < palier4 ) {
+
+				var difference = orevenue-palier3;
+				var impots = difference *41 /100+ tranche1+tranche2 ;
+				ores.innerHTML =("vos revenue sont entre "+palier3+" et "+palier4+"  donc palier Impot egale 41% de vos revenue egale ="+impots );
+			}
+			if (orevenue > palier4 ) {
+
+				var difference = orevenue-palier4 ;
+				var impots = difference *45 /100+ tranche1+tranche2+tranche3;
+				ores.innerHTML =("vos revenue sont superieur a "+palier4+" euros donc palie Impot egale 45% donc Impot egale  ="+impots );
+			}
+             
+
+		})
+       })
+
+	</script>
